@@ -78,14 +78,47 @@ export default function Home() {
   const [leadName, setLeadName] = useState("");
   const [leadContact, setLeadContact] = useState("");
   const [leadMsg, setLeadMsg] = useState("");
+  const [leadStatus, setLeadStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [leadError, setLeadError] = useState("");
 
   const marqueeLoop = useMemo(() => [...MARQUEE_ITEMS, ...MARQUEE_ITEMS], []);
 
-  const onLeadSubmit = () => {
-    const name = leadName || "אורח";
-    const msg = leadMsg ? ` הנה כמה מילים על הפרויקט שלי: ${leadMsg}` : "";
-    const text = `היי גאורגי! שמי ${name}, ראיתי את האתר שלך ואשמח לדבר איתך על בניית אתר.${msg} אפשר ליצור איתי קשר חזרה ב-${leadContact || ""}.`;
-    window.open(`https://wa.me/972524186300?text=${encodeURIComponent(text)}`, "_blank");
+  const onLeadSubmit = async () => {
+    setLeadError("");
+    setLeadStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadName.trim(),
+          phone: leadContact.trim(),
+          message: leadMsg.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        // If WhatsApp API isn't configured yet, fall back to opening a chat with you
+        if (data.code === "NOT_CONFIGURED") {
+          const name = leadName.trim() || "אורח";
+          const msg = leadMsg.trim() ? ` הנה כמה מילים על הפרויקט שלי: ${leadMsg.trim()}` : "";
+          const text = `היי גאורגי! שמי ${name}, ראיתי את האתר שלך ואשמח לדבר איתך על בניית אתר.${msg} אפשר ליצור איתי קשר חזרה ב-${leadContact.trim() || ""}.`;
+          window.open(`https://wa.me/972524186300?text=${encodeURIComponent(text)}`, "_blank");
+          setLeadStatus("idle");
+          return;
+        }
+        setLeadError(data.error || "משהו השתבש. נסה שוב.");
+        setLeadStatus("error");
+        return;
+      }
+      setLeadStatus("success");
+      setLeadName("");
+      setLeadContact("");
+      setLeadMsg("");
+    } catch {
+      setLeadError("בעיית רשת. נסה שוב בעוד רגע.");
+      setLeadStatus("error");
+    }
   };
 
   return (
@@ -260,26 +293,49 @@ export default function Home() {
           <p style={{ fontSize: 16, color: TEXT_DIM, margin: "0 0 44px" }}>מענה תוך 24 שעות · שיחת פתיחה ללא התחייבות</p>
 
           <div style={{ background: BG_2, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 36, textAlign: "right", maxWidth: 500, margin: "0 auto 44px" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <input
-                type="text" placeholder="שם מלא" value={leadName} onChange={(e) => setLeadName(e.target.value)}
-                style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15 }}
-              />
-              <input
-                type="text" placeholder="טלפון או אימייל" value={leadContact} onChange={(e) => setLeadContact(e.target.value)}
-                style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15 }}
-              />
-              <textarea
-                placeholder="קצת על הפרויקט שלך" value={leadMsg} onChange={(e) => setLeadMsg(e.target.value)} rows={3}
-                style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15, resize: "none" }}
-              />
-              <button
-                onClick={onLeadSubmit}
-                style={{ background: GOLD, color: BG, fontWeight: 800, fontSize: 16, padding: 16, borderRadius: 10, border: "none", cursor: "pointer", fontFamily: 'var(--font-assistant), Assistant, sans-serif' }}
-              >
-                שליחה בוואטסאפ — נחזור אליך תוך 24 שעות
-              </button>
-            </div>
+            {leadStatus === "success" ? (
+              <div style={{ textAlign: "center", padding: "12px 0" }}>
+                <div style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 800, fontSize: 22, marginBottom: 10 }}>תודה! ההודעה בדרך אליך</div>
+                <p style={{ fontSize: 15, color: TEXT_MUTED, margin: "0 0 24px", lineHeight: 1.6 }}>
+                  שלחנו לך אישור בוואטסאפ. אחזור אליך תוך 24 שעות.
+                </p>
+                <button
+                  onClick={() => setLeadStatus("idle")}
+                  style={{ background: "transparent", color: GOLD, fontWeight: 700, fontSize: 15, padding: "10px 18px", borderRadius: 10, border: `1px solid ${BORDER}`, cursor: "pointer", fontFamily: 'var(--font-assistant), Assistant, sans-serif' }}
+                >
+                  שליחה נוספת
+                </button>
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <input
+                  type="text" placeholder="שם מלא" value={leadName} onChange={(e) => setLeadName(e.target.value)}
+                  style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15 }}
+                />
+                <input
+                  type="tel" placeholder="מספר וואטסאפ (למשל 052-0000000)" value={leadContact} onChange={(e) => setLeadContact(e.target.value)}
+                  style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15 }}
+                />
+                <textarea
+                  placeholder="קצת על הפרויקט שלך" value={leadMsg} onChange={(e) => setLeadMsg(e.target.value)} rows={3}
+                  style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15, resize: "none" }}
+                />
+                {leadError ? (
+                  <div style={{ color: "oklch(0.75 0.12 25)", fontSize: 14, fontWeight: 600 }}>{leadError}</div>
+                ) : null}
+                <button
+                  onClick={onLeadSubmit}
+                  disabled={leadStatus === "loading"}
+                  style={{
+                    background: GOLD, color: BG, fontWeight: 800, fontSize: 16, padding: 16, borderRadius: 10,
+                    border: "none", cursor: leadStatus === "loading" ? "wait" : "pointer",
+                    fontFamily: 'var(--font-assistant), Assistant, sans-serif', opacity: leadStatus === "loading" ? 0.7 : 1,
+                  }}
+                >
+                  {leadStatus === "loading" ? "שולח..." : "שליחה — תקבלו אישור בוואטסאפ"}
+                </button>
+              </div>
+            )}
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", gap: 28, fontSize: 16, fontWeight: 600, color: TEXT_MUTED }}>
