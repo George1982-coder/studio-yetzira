@@ -13,19 +13,19 @@ const BORDER = "oklch(0.3 0.02 260)";
 const BORDER_DIM = "oklch(0.28 0.015 260)";
 
 const PROJECTS = [
-  { num: "01", title: "נגריית האינטרנט", subtitle: "אתר", url: "https://shlomi-nagaria.vercel.app/", image: "/projects/proj-01.jpg" },
-  { num: "02", title: "Carpro CRM", subtitle: "מערכת", url: "https://cars-geo.com/", image: "/projects/proj-02.jpg" },
-  { num: "03", title: "אינסטלציה מקצועית", subtitle: "דף נחיתה", url: "https://installer-psi.vercel.app/", image: "/projects/proj-03.jpg" },
+  { num: "01", title: "נגריית האינטרנט", subtitle: "אתר לעסק נגרות — ברור, מהיר, עם קריאה לפעולה", url: "https://shlomi-nagaria.vercel.app/", image: "/projects/proj-01.jpg" },
+  { num: "02", title: "Carpro CRM", subtitle: "מערכת לניהול לקוחות ורכב — בנויה לפי הצרכים של העסק", url: "https://cars-geo.com/", image: "/projects/proj-02.jpg" },
+  { num: "03", title: "אינסטלציה מקצועית", subtitle: "דף נחיתה שמכוון לשיחת טלפון, לא לגלילה סתם", url: "https://installer-psi.vercel.app/", image: "/projects/proj-03.jpg" },
 ];
 
 const STEPS = [
-  { letter: "א׳", title: "שיחת פתיחה", desc: "מבינים מה המטרה, מי הקהל, ומה כבר קיים. בלי שאלון גנרי — שיחה אמיתית." },
-  { letter: "ב׳", title: "אפיון ומבנה", desc: "מגדירים את מבנה הדף או האתר, התוכן והחוויה — לפני שכותבים שורת קוד אחת." },
-  { letter: "ג׳", title: "פיתוח ובנייה", desc: "בונים אתר מהיר, רספונסיבי ומדויק — עם קוד נקי שקל לתחזק ולהרחיב." },
-  { letter: "ד׳", title: "מסירה מלאה", desc: "אתר מוכן לעלות לאוויר, עם כל מה שצריך — וליווי קצר אחרי ההשקה." },
+  { letter: "א׳", title: "שיחה קצרה", desc: "מבינים מה העסק עושה, מי צריך להגיע לאתר, ומה אמור לקרות אחרי הכניסה — פנייה, שיחה או הזמנה." },
+  { letter: "ב׳", title: "מבנה ותוכן", desc: "בונים את הסדר של הדף לפני הקוד: מה רואים קודם, מה אומרים, ואיפה הכפתור שסוגר." },
+  { letter: "ג׳", title: "בנייה", desc: "מעלים אתר שעובד במובייל, נטען מהר, ונראה כמו העסק שלכם — לא כמו תבנית מוכנה." },
+  { letter: "ד׳", title: "השקה וליווי", desc: "מעלים לאוויר, בודקים שהכול עובד, ונותנים הוראות פשוטות לתפעול. לא נעלמים אחרי המסירה." },
 ];
 
-const MARQUEE_ITEMS = Array(8).fill(["דפי נחיתה", "אתרים", "רספונסיבי", "ביצועים"]).flat();
+const MARQUEE_ITEMS = Array(6).fill(["דף שמביא פניות", "אתר לעסק מקומי", "בלי תבניות", "מענה תוך יום", "מובייל קודם", "מסירה מלאה"]).flat();
 
 function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -68,7 +68,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
         rel="noopener noreferrer"
         style={{ marginTop: 36, display: "flex", alignItems: "center", gap: 8, fontSize: 14, fontWeight: 700, color: GOLD }}
       >
-        לצפייה באתר ↗
+        לפתיחת האתר ↗
       </a>
     </div>
   );
@@ -102,12 +102,12 @@ export default function Home() {
         if (data.code === "NOT_CONFIGURED") {
           const name = leadName.trim() || "אורח";
           const msg = leadMsg.trim() ? ` הנה כמה מילים על הפרויקט שלי: ${leadMsg.trim()}` : "";
-          const text = `היי גאורגי! שמי ${name}, ראיתי את האתר שלך ואשמח לדבר איתך על בניית אתר.${msg} אפשר ליצור איתי קשר חזרה ב-${leadContact.trim() || ""}.`;
+          const text = `היי גאורגי, שמי ${name}. ראיתי את האתר ואשמח לבדוק איתך בניית אתר לעסק.${msg} אפשר לחזור אליי ל-${leadContact.trim() || ""}.`;
           window.open(`https://wa.me/972524186300?text=${encodeURIComponent(text)}`, "_blank");
           setLeadStatus("idle");
           return;
         }
-        setLeadError(data.error || "משהו השתבש. נסה שוב.");
+        setLeadError(data.error || "משהו לא עבד. נסו שוב, או כתבו בוואטסאפ.");
         setLeadStatus("error");
         return;
       }
@@ -116,7 +116,7 @@ export default function Home() {
       setLeadContact("");
       setLeadMsg("");
     } catch {
-      setLeadError("בעיית רשת. נסה שוב בעוד רגע.");
+      setLeadError("יש תקלה זמנית. נסו שוב בעוד רגע, או שלחו הודעה בוואטסאפ.");
       setLeadStatus("error");
     }
   };
@@ -136,9 +136,9 @@ export default function Home() {
         </div>
         <div className="nav-links" style={{ display: "flex", gap: 36, fontSize: 16, fontWeight: 600, color: "oklch(0.85 0.01 260)" }}>
           <a href="#work" style={{ color: "inherit" }}>עבודות</a>
-          <a href="#process" style={{ color: "inherit" }}>תהליך</a>
-          <a href="#about" style={{ color: "inherit" }}>קצת עליי</a>
-          <a href="#contact" style={{ color: "inherit" }}>צור קשר</a>
+          <a href="#process" style={{ color: "inherit" }}>איך עובדים</a>
+          <a href="#about" style={{ color: "inherit" }}>עליי</a>
+          <a href="#contact" style={{ color: "inherit" }}>השאירו פנייה</a>
         </div>
       </nav>
 
@@ -166,25 +166,25 @@ export default function Home() {
             }}
           >
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, display: "inline-block" }} />
-            פרילנס · אתרים ודפי נחיתה
+            פרילנס · בונה אתרים לעסקים שרוצים פניות
           </div>
           <h1 className="hero-title" style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 68, lineHeight: 1.08, margin: "0 0 28px", letterSpacing: "-1.5px" }}>
-            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.15s forwards" }}>אתרים שנשארים</span>
-            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.28s forwards" }}>בזיכרון,</span>
-            <span style={{ display: "block", color: GOLD, opacity: 0, animation: "fadeUp 0.7s ease-out 0.41s forwards" }}>לא רק על המסך</span>
+            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.15s forwards" }}>אתר שגורם</span>
+            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.28s forwards" }}>לאנשים</span>
+            <span style={{ display: "block", color: GOLD, opacity: 0, animation: "fadeUp 0.7s ease-out 0.41s forwards" }}>להשאיר פרטים</span>
           </h1>
           <p style={{ fontSize: 19, lineHeight: 1.7, color: TEXT_MUTED, maxWidth: 520, margin: "0 0 40px", opacity: 0, animation: "fadeUp 0.7s ease-out 0.54s forwards" }}>
-            אני גאורגי מצאידזה — בונה דפי נחיתה ואתרים לעסקים ויוצרים שרוצים נוכחות דיגיטלית ברורה: מהירה, מדויקת, ובלי תבניות גנריות. כל פרויקט מתחיל במטרה אחת, ונגמר באתר שמוכן לעלות לאוויר.
+            אני גאורגי. בונה דפי נחיתה ואתרים קטנים לעסקים מקומיים — נגרים, בעלי מקצוע, שירותים ומותגים שצריכים דף ברור שמסביר מה עושים ואיך ליצור קשר. בלי סוכנות, בלי תבנית מוכנה, עם מענה תוך יום.
           </p>
           <div className="hero-ctas" style={{ display: "flex", gap: 18, marginBottom: 44, flexWrap: "wrap" }}>
-            <a href="#work" style={{ background: GOLD, color: BG, fontWeight: 700, fontSize: 16, padding: "16px 32px", borderRadius: 10, display: "inline-block" }}>לצפייה בעבודות ↓</a>
-            <a href="#contact" style={{ border: `1px solid oklch(0.4 0.02 260)`, color: TEXT, fontWeight: 700, fontSize: 16, padding: "16px 32px", borderRadius: 10, display: "inline-block" }}>בואו נדבר</a>
+            <a href="#contact" style={{ background: GOLD, color: BG, fontWeight: 700, fontSize: 16, padding: "16px 32px", borderRadius: 10, display: "inline-block" }}>דברו איתי על הפרויקט</a>
+            <a href="#work" style={{ border: `1px solid oklch(0.4 0.02 260)`, color: TEXT, fontWeight: 700, fontSize: 16, padding: "16px 32px", borderRadius: 10, display: "inline-block" }}>ראו עבודות ↓</a>
           </div>
           <div className="hero-stats" style={{ display: "flex", gap: 40, paddingTop: 32, borderTop: `1px solid ${BORDER_DIM}`, flexWrap: "wrap" }}>
             {[
-              { value: "6+", label: "שנות ניסיון" },
-              { value: "100%", label: "עיצוב מותאם אישית" },
-              { value: "24ש׳", label: "זמן מענה ממוצע" },
+              { value: "6+", label: "שנים בבנייה ותחזוקה" },
+              { value: "1:1", label: "עובדים ישירות איתי" },
+              { value: "24ש׳", label: "עד חזרה ראשונה" },
             ].map((s) => (
               <div key={s.label}>
                 <div style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 28, color: GOLD }}>{s.value}</div>
@@ -209,7 +209,7 @@ export default function Home() {
             <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, oklch(0.16 0.015 260 / 0.85) 0%, transparent 40%)` }} />
             <div style={{ position: "absolute", bottom: 20, right: 20, left: 20 }}>
               <div style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 700, fontSize: 20 }}>גאורגי מצאידזה</div>
-              <div style={{ fontSize: 14, color: GOLD, fontWeight: 600 }}>בונה אתרים ודפי נחיתה</div>
+              <div style={{ fontSize: 14, color: GOLD, fontWeight: 600 }}>אתרים ודפי נחיתה לעסקים</div>
             </div>
           </div>
         </div>
@@ -229,8 +229,8 @@ export default function Home() {
       {/* WORK */}
       <section id="work" className="section-pad" style={{ padding: "120px 64px", maxWidth: 1400, margin: "0 auto" }}>
         <div style={{ marginBottom: 56 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: GOLD, marginBottom: 12 }}>עבודות נבחרות</div>
-          <h2 style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 44, margin: 0, letterSpacing: "-1px" }}>שלושה פרויקטים — דפי נחיתה ואתרים</h2>
+          <div style={{ fontSize: 15, fontWeight: 700, color: GOLD, marginBottom: 12 }}>עבודות שאפשר לפתוח עכשיו</div>
+          <h2 style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 44, margin: 0, letterSpacing: "-1px" }}>לא מצגות — אתרים חיים באוויר</h2>
         </div>
         <div className="work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28, perspective: 1400 }}>
           {PROJECTS.map((p) => (
@@ -242,7 +242,7 @@ export default function Home() {
       {/* PROCESS */}
       <section id="process" className="section-pad" style={{ padding: "100px 64px", maxWidth: 1400, margin: "0 auto" }}>
         <div style={{ marginBottom: 56 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: GOLD, marginBottom: 12 }}>איך עובד תהליך העבודה</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: GOLD, marginBottom: 12 }}>מה קורה אחרי שפונים</div>
           <h2 style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 44, margin: 0, letterSpacing: "-1px" }}>ארבעה שלבים, בלי הפתעות באמצע</h2>
         </div>
         <div className="process-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24 }}>
@@ -272,13 +272,13 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <div style={{ fontSize: 15, fontWeight: 700, color: GOLD, marginBottom: 12 }}>קצת עליי</div>
+          <div style={{ fontSize: 15, fontWeight: 700, color: GOLD, marginBottom: 12 }}>למה לעבוד איתי</div>
           <h2 style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 38, margin: "0 0 28px", letterSpacing: "-1px" }}>גאורגי מצאידזה</h2>
           <p style={{ fontSize: 18, lineHeight: 1.8, color: TEXT_MUTED, margin: "0 0 20px" }}>
-            אני מפתח אתרים עצמאי עם תשוקה לבנות דפי נחיתה ואתרים שעובדים — מהירים, ברורים ומדויקים.
+            אני לא סוכנות ולא חבילת תבניות. אתם מדברים איתי ישירות — מהשיחה הראשונה עד שהאתר עולה.
           </p>
           <p style={{ fontSize: 18, lineHeight: 1.8, color: TEXT_MUTED, margin: 0 }}>
-            עבדתי עם עסקים קטנים, יוצרים עצמאיים ומותגים מקומיים — תמיד מתוך אמונה שאתר טוב מתחיל בהקשבה, לא בתבנית מוכנה. כל פרויקט מקבל חותמת אישית: משהו אחד שרק הוא יכול להתהדר בו.
+            רוב הלקוחות שלי הם עסקים קטנים ובעלי מקצוע שצריכים דף אחד טוב: מה מציעים, למי זה מתאים, ואיך משאירים פנייה. אני בונה את זה לפי העסק שלכם, לא לפי טרנד עיצובי. אחרי ההשקה אתם יודעים איך לעדכן ומה לעשות אם משהו נתקע.
           </p>
         </div>
       </section>
@@ -288,16 +288,16 @@ export default function Home() {
         <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse at center, oklch(0.78 0.17 70 / 0.12) 0%, transparent 60%)`, pointerEvents: "none" }} />
         <div style={{ position: "relative", maxWidth: 800, margin: "0 auto" }}>
           <h2 className="contact-title" style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 52, margin: "0 0 20px", letterSpacing: "-1.5px", lineHeight: 1.15 }}>
-            יש לך רעיון? בואו נהפוך אותו לאתר.
+            רוצים אתר שמביא פניות? שלחו הודעה.
           </h2>
-          <p style={{ fontSize: 16, color: TEXT_DIM, margin: "0 0 44px" }}>מענה תוך 24 שעות · שיחת פתיחה ללא התחייבות</p>
+          <p style={{ fontSize: 16, color: TEXT_DIM, margin: "0 0 44px" }}>חוזר תוך 24 שעות · בלי התחייבות · אפשר גם בוואטסאפ ישירות</p>
 
           <div style={{ background: BG_2, border: `1px solid ${BORDER}`, borderRadius: 18, padding: 36, textAlign: "right", maxWidth: 500, margin: "0 auto 44px" }}>
             {leadStatus === "success" ? (
               <div style={{ textAlign: "center", padding: "12px 0" }}>
-                <div style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 800, fontSize: 22, marginBottom: 10 }}>תודה! ההודעה בדרך אליך</div>
+                <div style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 800, fontSize: 22, marginBottom: 10 }}>קיבלתי — תודה</div>
                 <p style={{ fontSize: 15, color: TEXT_MUTED, margin: "0 0 24px", lineHeight: 1.6 }}>
-                  שלחנו לך אישור בוואטסאפ. אחזור אליך תוך 24 שעות.
+                  נשלח אליכם אישור בוואטסאפ. אחזור עם שאלות קצרות או הצעה תוך יום.
                 </p>
                 <button
                   onClick={() => setLeadStatus("idle")}
@@ -309,15 +309,15 @@ export default function Home() {
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <input
-                  type="text" placeholder="שם מלא" value={leadName} onChange={(e) => setLeadName(e.target.value)}
+                  type="text" placeholder="איך קוראים לכם" value={leadName} onChange={(e) => setLeadName(e.target.value)}
                   style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15 }}
                 />
                 <input
-                  type="tel" placeholder="מספר וואטסאפ (למשל 052-0000000)" value={leadContact} onChange={(e) => setLeadContact(e.target.value)}
+                  type="tel" placeholder="וואטסאפ לחזרה (למשל 052-0000000)" value={leadContact} onChange={(e) => setLeadContact(e.target.value)}
                   style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15 }}
                 />
                 <textarea
-                  placeholder="קצת על הפרויקט שלך" value={leadMsg} onChange={(e) => setLeadMsg(e.target.value)} rows={3}
+                  placeholder="במשפט-שניים: מה העסק ומה צריך מהאתר" value={leadMsg} onChange={(e) => setLeadMsg(e.target.value)} rows={3}
                   style={{ background: BG, border: `1px solid ${BORDER}`, borderRadius: 10, padding: "14px 16px", color: TEXT, fontFamily: 'var(--font-assistant), Assistant, sans-serif', fontSize: 15, resize: "none" }}
                 />
                 {leadError ? (
@@ -332,7 +332,7 @@ export default function Home() {
                     fontFamily: 'var(--font-assistant), Assistant, sans-serif', opacity: leadStatus === "loading" ? 0.7 : 1,
                   }}
                 >
-                  {leadStatus === "loading" ? "שולח..." : "שליחה — תקבלו אישור בוואטסאפ"}
+                  {leadStatus === "loading" ? "שולח..." : "שליחה — חוזר אליכם בוואטסאפ"}
                 </button>
               </div>
             )}
@@ -347,7 +347,7 @@ export default function Home() {
 
       <footer className="site-footer" style={{ padding: "36px 64px", display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: `1px solid ${BORDER_DIM}`, fontSize: 14, color: "oklch(0.5 0.02 260)" }}>
         <div>© 2026 גאורגי מצאידזה</div>
-        <div>פרילנס · ישראל</div>
+        <div>אתרים ודפי נחיתה · ישראל</div>
       </footer>
     </div>
   );
