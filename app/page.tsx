@@ -166,15 +166,15 @@ export default function Home() {
             }}
           >
             <span style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, display: "inline-block" }} />
-            פרילנס · בונה אתרים לעסקים שרוצים פניות
+            פרילנס · אתרים ודפי נחיתה לעסקים מקומיים
           </div>
           <h1 className="hero-title" style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 68, lineHeight: 1.08, margin: "0 0 28px", letterSpacing: "-1.5px" }}>
-            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.15s forwards" }}>אתר שגורם</span>
-            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.28s forwards" }}>לאנשים</span>
-            <span style={{ display: "block", color: GOLD, opacity: 0, animation: "fadeUp 0.7s ease-out 0.41s forwards" }}>להשאיר פרטים</span>
+            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.15s forwards" }}>אתר לעסק שלך</span>
+            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.28s forwards" }}>שנראה אמין</span>
+            <span style={{ display: "block", color: GOLD, opacity: 0, animation: "fadeUp 0.7s ease-out 0.41s forwards" }}>ומזמין קשר</span>
           </h1>
           <p style={{ fontSize: 19, lineHeight: 1.7, color: TEXT_MUTED, maxWidth: 520, margin: "0 0 40px", opacity: 0, animation: "fadeUp 0.7s ease-out 0.54s forwards" }}>
-            אני גאורגי. בונה דפי נחיתה ואתרים קטנים לעסקים מקומיים — נגרים, בעלי מקצוע, שירותים ומותגים שצריכים דף ברור שמסביר מה עושים ואיך ליצור קשר. בלי סוכנות, בלי תבנית מוכנה, עם מענה תוך יום.
+            אני גאורגי. בונה דפי נחיתה ואתרים קטנים לבעלי מקצוע ועסקים מקומיים — דף ברור שמסביר מה עושים, למי זה מתאים, ואיך ליצור קשר. עובדים ישירות איתי, בלי תבנית מוכנה, עם מענה תוך יום.
           </p>
           <div className="hero-ctas" style={{ display: "flex", gap: 18, marginBottom: 44, flexWrap: "wrap" }}>
             <a href="#contact" style={{ background: GOLD, color: BG, fontWeight: 700, fontSize: 16, padding: "16px 32px", borderRadius: 10, display: "inline-block" }}>דברו איתי על הפרויקט</a>

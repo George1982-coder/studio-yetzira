@@ -19,8 +19,8 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "גאורגי מצאידזה — אתרים ודפי נחיתה שמביאים פניות",
-  description: "בונה אתרים ודפי נחיתה לעסקים מקומיים בישראל. עבודה ישירה, בלי תבניות, מענה תוך יום.",
+  title: "גאורגי מצאידזה — אתרים ודפי נחיתה לעסקים מקומיים",
+  description: "בונה אתרים ודפי נחיתה לבעלי מקצוע ועסקים בישראל. עבודה ישירה, בלי תבניות, מענה תוך יום.",
   applicationName: "GM Studio",
   appleWebApp: {
     capable: true,
