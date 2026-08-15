@@ -1,0 +1,272 @@
+.root {
+  position: fixed;
+  inset-inline-start: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  font-family: var(--font-assistant), Assistant, sans-serif;
+}
+
+.trigger {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid oklch(0.4 0.04 70);
+  background: oklch(0.22 0.02 260);
+  color: oklch(0.78 0.17 70);
+  box-shadow: 0 10px 28px oklch(0 0 0 / 0.35);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.trigger:hover {
+  transform: translateY(-2px);
+  background: oklch(0.26 0.02 260);
+  border-color: oklch(0.78 0.17 70);
+}
+
+.trigger:focus-visible {
+  outline: 3px solid oklch(0.78 0.17 70);
+  outline-offset: 3px;
+}
+
+.trigger[aria-expanded="true"] {
+  background: oklch(0.78 0.17 70);
+  color: oklch(0.16 0.015 260);
+  border-color: oklch(0.78 0.17 70);
+}
+
+.panel {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: calc(100% + 12px);
+  width: min(340px, calc(100vw - 40px));
+  max-height: min(70vh, 520px);
+  overflow: auto;
+  border-radius: 16px;
+  border: 1px solid oklch(0.32 0.02 260);
+  background: oklch(0.18 0.015 260 / 0.96);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 48px oklch(0 0 0 / 0.45);
+  padding: 16px;
+  color: oklch(0.96 0.01 260);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid oklch(0.28 0.015 260);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-heebo), Heebo, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.close {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid oklch(0.32 0.02 260);
+  background: transparent;
+  color: oklch(0.85 0.01 260);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.close:hover {
+  border-color: oklch(0.78 0.17 70);
+  color: oklch(0.78 0.17 70);
+}
+
+.close:focus-visible {
+  outline: 3px solid oklch(0.78 0.17 70);
+  outline-offset: 2px;
+}
+
+.section {
+  margin-bottom: 14px;
+}
+
+.sectionLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: oklch(0.72 0.02 260);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  flex: 1 1 auto;
+  min-height: 42px;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid oklch(0.32 0.02 260);
+  background: oklch(0.22 0.015 260);
+  color: oklch(0.96 0.01 260);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  border-color: oklch(0.5 0.04 70);
+}
+
+.btn:focus-visible {
+  outline: 3px solid oklch(0.78 0.17 70);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btnActive {
+  border-color: oklch(0.78 0.17 70);
+  background: oklch(0.78 0.17 70 / 0.16);
+  color: oklch(0.9 0.12 70);
+}
+
+.toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: start;
+}
+
+.toggleLabel {
+  flex: 1;
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: oklch(0.3 0.02 260);
+  border: 1px solid oklch(0.38 0.02 260);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  inset-inline-start: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: oklch(0.92 0.01 260);
+  transition: transform 0.2s ease;
+}
+
+.btnActive .switch {
+  background: oklch(0.78 0.17 70);
+  border-color: oklch(0.78 0.17 70);
+}
+
+.btnActive .switch::after {
+  inset-inline-start: auto;
+  inset-inline-end: 3px;
+}
+
+.scaleHint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: oklch(0.62 0.02 260);
+  font-weight: 600;
+}
+
+.reset {
+  width: 100%;
+  margin-top: 4px;
+  min-height: 44px;
+  border-radius: 10px;
+  border: 1px dashed oklch(0.4 0.02 260);
+  background: transparent;
+  color: oklch(0.85 0.01 260);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.reset:hover {
+  border-color: oklch(0.78 0.17 70);
+  color: oklch(0.78 0.17 70);
+}
+
+.reset:focus-visible {
+  outline: 3px solid oklch(0.78 0.17 70);
+  outline-offset: 2px;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: oklch(0 0 0 / 0.35);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .root {
+    inset-inline-start: 14px;
+    bottom: 14px;
+  }
+
+  .trigger {
+    width: 52px;
+    height: 52px;
+  }
+
+  .panel {
+    width: min(320px, calc(100vw - 28px));
+    max-height: min(65vh, 480px);
+    padding: 14px;
+  }
+}
+
+/* Prefer reduced motion for the widget chrome itself when requested */
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .btn,
+  .switch,
+  .switch::after {
+    transition: none;
+  }
+}
+
+:global(html.a11y-reduce-motion) .trigger,
+:global(html.a11y-reduce-motion) .btn,
+:global(html.a11y-reduce-motion) .switch,
+:global(html.a11y-reduce-motion) .switch::after {
+  transition: none !important;
+}

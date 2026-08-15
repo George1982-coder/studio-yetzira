@@ -1,8 +1,47 @@
-
 * { box-sizing: border-box; }
 body { margin: 0; background: oklch(0.16 0.015 260); }
 a { color: oklch(0.78 0.17 70); text-decoration: none; }
 a:hover { color: oklch(0.85 0.15 70); }
+
+/* —— Accessibility Menu effects (toggled via <html> classes) —— */
+html.a11y-high-contrast body {
+  background: #000 !important;
+  color: #fff !important;
+}
+html.a11y-high-contrast [data-a11y-content] {
+  filter: contrast(1.35) saturate(1.15);
+}
+html.a11y-high-contrast a {
+  color: #ffe566 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+html.a11y-grayscale [data-a11y-content] {
+  filter: grayscale(1);
+}
+html.a11y-high-contrast.a11y-grayscale [data-a11y-content] {
+  filter: grayscale(1) contrast(1.45);
+}
+
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation: none !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+html.a11y-highlight-links a {
+  outline: 3px solid #ffe566 !important;
+  outline-offset: 2px !important;
+  background-color: rgba(255, 229, 102, 0.22) !important;
+  border-radius: 2px;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
 
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

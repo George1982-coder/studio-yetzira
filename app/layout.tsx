@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Assistant, Heebo } from "next/font/google";
+import { AccessibilityMenu } from "@/components/AccessibilityMenu";
 import { RegisterSW } from "@/components/RegisterSW";
+import { A11Y_BOOTSTRAP_SCRIPT } from "@/lib/a11y";
 import "./globals.css";
 
 const assistant = Assistant({
@@ -46,8 +49,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="he" dir="rtl" className={`${assistant.variable} ${heebo.variable}`}>
       <body style={{ margin: 0, fontFamily: "var(--font-assistant), Assistant, sans-serif" }}>
+        <Script
+          id="a11y-settings-bootstrap"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: A11Y_BOOTSTRAP_SCRIPT }}
+        />
         <RegisterSW />
-        {children}
+        <div data-a11y-content="true">{children}</div>
+        <AccessibilityMenu />
       </body>
     </html>
   );
