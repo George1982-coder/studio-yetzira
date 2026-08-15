@@ -169,9 +169,8 @@ export default function Home() {
             פרילנס · אתרים ודפי נחיתה לעסקים מקומיים
           </div>
           <h1 className="hero-title" style={{ fontFamily: 'var(--font-heebo), Heebo, sans-serif', fontWeight: 900, fontSize: 68, lineHeight: 1.08, margin: "0 0 28px", letterSpacing: "-1.5px" }}>
-            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.15s forwards" }}>אתר לעסק שלך</span>
-            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.28s forwards" }}>שנראה אמין</span>
-            <span style={{ display: "block", color: GOLD, opacity: 0, animation: "fadeUp 0.7s ease-out 0.41s forwards" }}>ומזמין קשר</span>
+            <span style={{ display: "block", opacity: 0, animation: "fadeUp 0.7s ease-out 0.15s forwards" }}>בונים אתרים ודפי נחיתה שמוכרים – לא רק יפים.</span>
+            <span style={{ display: "block", color: GOLD, opacity: 0, animation: "fadeUp 0.7s ease-out 0.28s forwards" }}>הופכים את הגולשים שלך ללקוחות משלמים.</span>
           </h1>
           <p style={{ fontSize: 19, lineHeight: 1.7, color: TEXT_MUTED, maxWidth: 520, margin: "0 0 40px", opacity: 0, animation: "fadeUp 0.7s ease-out 0.54s forwards" }}>
             אני גאורגי. בונה דפי נחיתה ואתרים קטנים לבעלי מקצוע ועסקים מקומיים — דף ברור שמסביר מה עושים, למי זה מתאים, ואיך ליצור קשר. עובדים ישירות איתי, בלי תבנית מוכנה, עם מענה תוך יום.
