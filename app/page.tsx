@@ -268,7 +268,7 @@ export default function Home() {
               fontWeight: 900, fontSize: 16, padding: "16px 22px", borderRadius: 14, boxShadow: "0 20px 40px -10px oklch(0 0 0 / 0.5)",
             }}
           >
-            נעשה ביד,<br />נחשב מראש
+            עושים ביחד
           </div>
         </div>
         <div>
